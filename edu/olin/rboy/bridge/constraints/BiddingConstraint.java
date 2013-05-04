@@ -1,6 +1,7 @@
 package edu.olin.rboy.bridge.constraints;
 
 import java.util.List;
+import java.util.Set;
 
 import edu.olin.rboy.bridge.Bid;
 import edu.olin.rboy.bridge.GameState;
@@ -40,6 +41,12 @@ public class BiddingConstraint implements Constraint{
 	
 	public List<Bid> getValue(GameState state){
 		return state.getBidding();
+	}
+
+	@Override
+	public Set<Set<Constraint>> getPossDivisions(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

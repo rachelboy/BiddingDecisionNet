@@ -80,6 +80,10 @@ public abstract class HandConstraint implements Constraint {
 		return res;
 	}
 	
+	@Override
+	public Set<Set<Constraint>> getPossDivisions(int i){
+		return null;
+	}
 	
 
 }
