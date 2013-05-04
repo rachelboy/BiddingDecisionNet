@@ -40,6 +40,10 @@ public class LearningNode implements LearningNodeInterface {
 		}
 	}
 	
+	public LearningNode(List<Constraint> constraints){
+		this.constraints.addAll(constraints);
+	}
+	
 	public LearningNode(DecisionNodeInterface baseNode) {
 		constraints.addAll(baseNode.getConstraints());
 		for (DecisionNodeInterface child : baseNode.getRegularChildren()){
