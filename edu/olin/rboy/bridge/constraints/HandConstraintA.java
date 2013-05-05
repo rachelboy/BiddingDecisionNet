@@ -19,7 +19,7 @@ abstract public class HandConstraintA extends HandConstraint {
 	 * @param min
 	 * @param max
 	 */
-	public HandConstraintA(int min, int max, int suit) {
+	public HandConstraintA(Integer min, Integer max, Integer suit) {
 		super(min, max);
 		this.suit = suit;
 	}

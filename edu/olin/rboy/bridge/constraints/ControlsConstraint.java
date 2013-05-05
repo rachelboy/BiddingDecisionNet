@@ -15,15 +15,15 @@ public class ControlsConstraint extends HandConstraintA {
 	 * @param min
 	 * @param max
 	 */
-	public ControlsConstraint(int min, int max, int suit) {
+	public ControlsConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public ControlsConstraint(int suit) {
+	public ControlsConstraint(Integer suit) {
 		this(0, 3, suit);
 	}
 	
-	public ControlsConstraint(int min, int max) {
+	public ControlsConstraint(Integer min, Integer max) {
 		this(min, max, -1);
 	}
 	

@@ -18,11 +18,11 @@ public class SuitLengthConstraint extends HandConstraintS {
 	 * @param max
 	 * @param suit
 	 */
-	public SuitLengthConstraint(int min, int max, int suit) {
+	public SuitLengthConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public SuitLengthConstraint(int suit) {
+	public SuitLengthConstraint(Integer suit) {
 		this(0,13,suit);
 	}
 

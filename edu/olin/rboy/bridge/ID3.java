@@ -3,6 +3,7 @@ package edu.olin.rboy.bridge;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -60,9 +61,9 @@ public class ID3 implements BridgeConstants{
 
 	private Set<Constraint> makeDivisions(Constraint newConstraint,
 			Map<Bid, Set<GameState>> learned) {
-		Set<Set<Constraint>> possDivisions = newConstraint.getPossDivisions(learned.keySet().size());
-		Map<Float, Set<Constraint>> aveEntropy = new HashMap<Float, Set<Constraint>>();
-		for (Set<Constraint> division : possDivisions){
+		List<List<Constraint>> possDivisions = newConstraint.getPossDivisions(learned.keySet().size());
+		Map<Float, List<Constraint>> aveEntropy = new HashMap<Float, List<Constraint>>();
+		for (List<Constraint> division : possDivisions){
 			Float totEntropy = 0f;
 			for (Constraint constraint : division){
 				totEntropy += findConstraintEntropy(constraint, learned);

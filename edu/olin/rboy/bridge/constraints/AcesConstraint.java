@@ -16,15 +16,15 @@ public class AcesConstraint extends HandConstraintA {
 	 * @param max
 	 * @param suit
 	 */
-	public AcesConstraint(int min, int max, int suit) {
+	public AcesConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public AcesConstraint(int suit) {
+	public AcesConstraint(Integer suit) {
 		this(0, 1, suit);
 	}
 	
-	public AcesConstraint(int min, int max) {
+	public AcesConstraint(Integer min, Integer max) {
 		this(min, max, -1);
 	}
 	

@@ -16,15 +16,15 @@ public class KingsConstraint extends HandConstraintA{
 	 * @param max
 	 * @param suit
 	 */
-	public KingsConstraint(int min, int max, int suit) {
+	public KingsConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public KingsConstraint(int suit) {
+	public KingsConstraint(Integer suit) {
 		this(0, 1, suit);
 	}
 	
-	public KingsConstraint(int min, int max) {
+	public KingsConstraint(Integer min, Integer max) {
 		this(min, max, -1);
 	}
 	

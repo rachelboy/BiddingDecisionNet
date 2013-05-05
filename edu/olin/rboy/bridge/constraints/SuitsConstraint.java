@@ -17,7 +17,7 @@ public class SuitsConstraint extends HandConstraint {
 	 * @param min
 	 * @param max
 	 */
-	public SuitsConstraint(int min, int max) {
+	public SuitsConstraint(Integer min, Integer max) {
 		super(min, max);
 		// TODO Auto-generated constructor stub
 	}

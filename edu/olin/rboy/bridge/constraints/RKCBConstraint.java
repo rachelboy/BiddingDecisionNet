@@ -18,11 +18,11 @@ public class RKCBConstraint extends HandConstraintS {
 	 * @param max
 	 * @param suit
 	 */
-	public RKCBConstraint(int min, int max, int suit) {
+	public RKCBConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public RKCBConstraint(int suit) {
+	public RKCBConstraint(Integer suit) {
 		this(0,5,suit);
 	}
 

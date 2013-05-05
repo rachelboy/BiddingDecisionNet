@@ -59,8 +59,8 @@ public abstract class HandConstraint implements Constraint {
 		return res;
 	}
 	
-	public Set<HandConstraint> getDivision(int i){
-		Set<HandConstraint> res = new HashSet<HandConstraint>(2);
+	public List<Constraint> getDivision(int i){
+		List<Constraint> res = new ArrayList<Constraint>(2);
 		Class cls[] = new Class[] {Integer.class, Integer.class};
 		Constructor<? extends HandConstraint> construct;
 		
@@ -69,7 +69,6 @@ public abstract class HandConstraint implements Constraint {
 			res.add(construct.newInstance(min,i));
 			res.add(construct.newInstance(i+1,max));
 		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
@@ -77,13 +76,38 @@ public abstract class HandConstraint implements Constraint {
 			e.printStackTrace();
 		}
 		
+		
+		
 		return res;
 	}
 	
 	@Override
-	public Set<Set<Constraint>> getPossDivisions(int i){
-		return null;
+	public List<List<Constraint>> getPossDivisions(int i){
+		List<List<Constraint>> baseSet = new ArrayList<List<Constraint>>();
+		List<Constraint> baseList = new ArrayList<Constraint>();
+		baseList.add(this);
+		baseSet.add(baseList);
+		return getPossDivisionsHelper(i, baseSet);
 	}
 	
+	private List<List<Constraint>> getPossDivisionsHelper(int i, List<List<Constraint>> prevDepth) {
+		if (i<=0){
+			return new ArrayList<List<Constraint>>();
+		}
+		List<List<Constraint>> nextDepth = new ArrayList<List<Constraint>>();
+		for (List<Constraint> cSet : prevDepth) {
+			HandConstraint con = (HandConstraint) cSet.get(0);
+			for (int j = con.min; j < con.max; j++){
+				List<Constraint> nextC = new ArrayList<Constraint>(cSet);
+				List<Constraint> add = con.getDivision(j);
+				nextC.set(0, add.get(0));
+				nextC.add(add.get(1));
+				nextDepth.add(nextC);
+			}
+		}
+		prevDepth.addAll(nextDepth);
+		prevDepth.addAll(getPossDivisionsHelper(i-1, nextDepth));
+		return prevDepth;
+	}
 
 }

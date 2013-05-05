@@ -16,15 +16,15 @@ public class QueensConstraint extends HandConstraintA {
 	 * @param max
 	 * @param suit
 	 */
-	public QueensConstraint(int min, int max, int suit) {
+	public QueensConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public QueensConstraint(int suit) {
+	public QueensConstraint(Integer suit) {
 		this(0, 1, suit);
 	}
 	
-	public QueensConstraint(int min, int max) {
+	public QueensConstraint(Integer min, Integer max) {
 		this(min, max, -1);
 	}
 	

@@ -16,15 +16,15 @@ public class TensConstraint extends HandConstraintA {
 	 * @param max
 	 * @param suit
 	 */
-	public TensConstraint(int min, int max, int suit) {
+	public TensConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public TensConstraint(int suit) {
+	public TensConstraint(Integer suit) {
 		this(0, 1, suit);
 	}
 	
-	public TensConstraint(int min, int max) {
+	public TensConstraint(Integer min, Integer max) {
 		this(min, max, -1);
 	}
 	

@@ -16,15 +16,15 @@ public class HonorsConstraint extends HandConstraintA {
 	 * @param max
 	 * @param suit
 	 */
-	public HonorsConstraint(int min, int max, int suit) {
+	public HonorsConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public HonorsConstraint(int suit) {
+	public HonorsConstraint(Integer suit) {
 		this(0, 5, suit);
 	}
 	
-	public HonorsConstraint(int min, int max) {
+	public HonorsConstraint(Integer min, Integer max) {
 		this(min, max, -1);
 	}
 	

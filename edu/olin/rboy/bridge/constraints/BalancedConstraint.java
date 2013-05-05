@@ -17,7 +17,7 @@ public class BalancedConstraint extends HandConstraint {
 	 * @param min
 	 * @param max
 	 */
-	public BalancedConstraint(int min, int max) {
+	public BalancedConstraint(Integer min, Integer max) {
 		super(min, max);
 	}
 	

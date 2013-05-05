@@ -16,15 +16,15 @@ public class JacksConstraint extends HandConstraintA {
 	 * @param max
 	 * @param suit
 	 */
-	public JacksConstraint(int min, int max, int suit) {
+	public JacksConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public JacksConstraint(int suit) {
+	public JacksConstraint(Integer suit) {
 		this(0, 1, suit);
 	}
 	
-	public JacksConstraint(int min, int max) {
+	public JacksConstraint(Integer min, Integer max) {
 		this(min, max, -1);
 	}
 	

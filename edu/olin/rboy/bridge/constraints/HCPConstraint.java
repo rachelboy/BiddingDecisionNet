@@ -16,15 +16,15 @@ public class HCPConstraint extends HandConstraintA {
 	 * @param min
 	 * @param max
 	 */
-	public HCPConstraint(int min, int max, int suit) {
+	public HCPConstraint(Integer min, Integer max, Integer suit) {
 		super(min, max, suit);
 	}
 	
-	public HCPConstraint(int suit) {
+	public HCPConstraint(Integer suit) {
 		this(0, 10, suit);
 	}
 	
-	public HCPConstraint(int min, int max) {
+	public HCPConstraint(Integer min, Integer max) {
 		this(min, max, -1);
 	}
 	
