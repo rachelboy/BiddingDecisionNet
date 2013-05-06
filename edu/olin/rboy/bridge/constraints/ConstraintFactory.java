@@ -11,7 +11,16 @@ public class ConstraintFactory {
 
 	public static Set<Constraint> makeAllHandConstraints() {
 		Set<Constraint> bah = new HashSet<Constraint>();
-		for (int i=-1; i<4; i++){
+		bah.add(new AcesConstraint());
+		bah.add(new ControlsConstraint());
+		bah.add(new HCConstraint());
+		bah.add(new HCPConstraint());
+		bah.add(new HonorsConstraint());
+		bah.add(new JacksConstraint());
+		bah.add(new KingsConstraint());
+		bah.add(new QueensConstraint());
+		bah.add(new TensConstraint());
+		for (int i=0; i<4; i++){
 			bah.add(new AcesConstraint(i));
 			bah.add(new ControlsConstraint(i));
 			bah.add(new HCConstraint(i));
@@ -21,8 +30,6 @@ public class ConstraintFactory {
 			bah.add(new KingsConstraint(i));
 			bah.add(new QueensConstraint(i));
 			bah.add(new TensConstraint(i));
-		}
-		for (int i=0; i<4; i++) {
 			bah.add(new RKCBConstraint(i));
 			bah.add(new SuitLengthConstraint(i));
 		}

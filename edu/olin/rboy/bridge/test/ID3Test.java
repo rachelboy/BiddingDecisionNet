@@ -3,8 +3,11 @@ package edu.olin.rboy.bridge.test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
@@ -14,7 +17,9 @@ import edu.olin.rboy.bridge.Bid;
 import edu.olin.rboy.bridge.BridgeConstants;
 import edu.olin.rboy.bridge.GameState;
 import edu.olin.rboy.bridge.ID3;
+import edu.olin.rboy.bridge.constraints.AcesConstraint;
 import edu.olin.rboy.bridge.constraints.Constraint;
+import edu.olin.rboy.bridge.constraints.HCConstraint;
 import edu.olin.rboy.bridge.constraints.SuitLengthConstraint;
 import edu.olin.rboy.bridge.networks.DecisionNodeInterface;
 import edu.olin.rboy.bridge.networks.LearningNode;
@@ -111,10 +116,10 @@ public class ID3Test implements BridgeConstants{
 	@Test
 	public void testTwoActions() {
 		List<Constraint> constraints = new ArrayList<Constraint>();
-		constraints.add(new SuitLengthConstraint(4,13,HEARTS));
+		constraints.add(new SuitLengthConstraint(3,13,HEARTS));
 		LearningNodeInterface node = new LearningNode(constraints);
 		node.addLearningInstance(bidHearts, BIDS[0][HEARTS]);
-		node.addLearningInstance(NTorH, BIDS[0][NT]);
+		node.addLearningInstance(bidNT, BIDS[0][NT]);
 		
 		ID3 id3 = new ID3();
 		
@@ -140,6 +145,53 @@ public class ID3Test implements BridgeConstants{
 			assertTrue(n1.getActions().contains(BIDS[0][NT]));
 		}
 		
+	}
+	
+	@Test
+	public void testFindActionEntropy() {
+		Constraint testConstraint = new AcesConstraint();
+		Map<Bid,Set<GameState>> stateSet = new HashMap<Bid,Set<GameState>>();
+		
+		Set<GameState> temp = new HashSet<GameState>();
+		temp.add(bidHearts);
+		stateSet.put(BIDS[0][HEARTS], temp);
+		assertTrue(ID3.findActionEntropy(testConstraint, stateSet) == 0);
+		
+		temp = new HashSet<GameState>();
+		temp.add(bidNT);
+		stateSet.put(BIDS[0][NT], temp);
+		Float val = ID3.findActionEntropy(testConstraint, stateSet);
+		assertTrue(val > -1*Math.log(.5)-.000001f);
+		assertTrue(val < -1*Math.log(.5)+.000001f);
+		
+		temp.add(NTorH);
+		stateSet.put(BIDS[0][NT], temp);
+		val = ID3.findActionEntropy(testConstraint, stateSet);
+		Float oneThird = 1/3f;
+		Float twoThird = 2/3f;
+		Float ans = (float) ((-1*(oneThird)*Math.log(oneThird))-((twoThird)*Math.log(twoThird)));
+		assertTrue(val > ans - .000001f);
+		assertTrue(val < ans + .000001f);
+		
+	}
+	
+	@Test
+	public void testMakeDivisions() {
+		Constraint constraint = new HCConstraint();
+		Map<Bid,Set<GameState>> learned = new HashMap<Bid,Set<GameState>>();
+		Set<GameState> temp = new HashSet<GameState>();
+		temp.add(bidHearts);
+		learned.put(BIDS[0][HEARTS], temp);
+		temp = new HashSet<GameState>();
+		temp.add(bidNT);
+		learned.put(BIDS[0][NT], temp);
+		
+		List<Constraint> res = ID3.makeDivisions(constraint, learned);
+		assertTrue(res.size()==2);
+		assertTrue(res.get(0).satisfiesConstraints(bidHearts));
+		assertFalse(res.get(0).satisfiesConstraints(bidNT));
+		assertTrue(res.get(1).satisfiesConstraints(bidNT));
+		assertFalse(res.get(1).satisfiesConstraints(bidHearts));
 	}
 
 }

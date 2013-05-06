@@ -18,8 +18,8 @@ import edu.olin.rboy.bridge.GameState;
  */
 public abstract class HandConstraint implements Constraint {
 	
-	int min;
-	int max;
+	public int min;
+	public int max;
 
 	/**
 	 * 
@@ -61,13 +61,19 @@ public abstract class HandConstraint implements Constraint {
 	
 	public List<Constraint> getDivision(int i){
 		List<Constraint> res = new ArrayList<Constraint>(2);
+		res.add(newInstance(min, i));
+		res.add(newInstance(i+1, max));
+		
+		return res;
+	}
+
+	private HandConstraint newInstance(int bottom, int top) {
 		Class cls[] = new Class[] {Integer.class, Integer.class};
 		Constructor<? extends HandConstraint> construct;
 		
 		try {
 			construct = this.getClass().getConstructor(cls);
-			res.add(construct.newInstance(min,i));
-			res.add(construct.newInstance(i+1,max));
+			return construct.newInstance(bottom,top);
 		} catch (NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		} catch (InstantiationException | IllegalAccessException
@@ -75,10 +81,33 @@ public abstract class HandConstraint implements Constraint {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	@Override
+	
+	public Constraint newInstance() {
+		try {
+			Constructor<? extends HandConstraint> construct = this.getClass().getConstructor(new Class[]{});
+			return construct.newInstance();
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 		
-		
-		
-		return res;
 	}
 	
 	@Override

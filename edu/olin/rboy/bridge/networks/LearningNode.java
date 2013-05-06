@@ -40,7 +40,7 @@ public class LearningNode implements LearningNodeInterface {
 		}
 	}
 	
-	public LearningNode(List<Constraint> constraints){
+	public LearningNode(Collection<Constraint> constraints){
 		this.constraints.addAll(constraints);
 	}
 	

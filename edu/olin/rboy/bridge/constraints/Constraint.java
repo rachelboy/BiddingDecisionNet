@@ -19,5 +19,7 @@ public interface Constraint {
 	 * 
 	 */
 	public List<List<Constraint>> getPossDivisions(int i);
+	
+	public Constraint newInstance();
 
 }

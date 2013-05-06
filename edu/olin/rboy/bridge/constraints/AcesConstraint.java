@@ -20,6 +20,9 @@ public class AcesConstraint extends HandConstraintA {
 		super(min, max, suit);
 	}
 	
+	/*Initializes min and max to within a suit values - don't 
+	 * use suit = -1 to get a whole hand constraint.
+	 */
 	public AcesConstraint(Integer suit) {
 		this(0, 1, suit);
 	}

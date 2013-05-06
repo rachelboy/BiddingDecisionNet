@@ -44,7 +44,13 @@ public class BiddingConstraint implements Constraint{
 	}
 
 	@Override
-	public Set<Set<Constraint>> getPossDivisions(int i) {
+	public List<List<Constraint>> getPossDivisions(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Constraint newInstance() {
 		// TODO Auto-generated method stub
 		return null;
 	}
