@@ -57,5 +57,32 @@ abstract public class HandConstraintS extends HandConstraint {
 		}
 		return null;
 	}
+	
+@Override
+	
+	public Constraint newInstance() {
+		try {
+			Class cls[] = new Class[] {Integer.class};
+			Constructor<? extends HandConstraint> construct = this.getClass().getConstructor(cls);
+			return construct.newInstance(suit);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 
 }

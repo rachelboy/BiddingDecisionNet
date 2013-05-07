@@ -2,10 +2,12 @@ package edu.olin.rboy.bridge.test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
@@ -133,4 +135,27 @@ public class LearnerTest implements BridgeConstants{
 		assertTrue(bids.contains(BIDS[0][CLUBS]));
 	}
 
+	@Test
+	public void testGetExamples() {
+		Learner learner = new Learner(new DecisionTree());
+		Map<GameState, Bid> data = null;
+		try {
+			data = learner.getExamples("/home/rboy/AI/BridgeBidding/src/edu/olin/rboy/bridge/test/example.data");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(data.size() == 2);
+		for (GameState state : data.keySet()) {
+			int clubsLen = state.getHand().get(0).size();
+			assertTrue(clubsLen == 3 || clubsLen == 2);
+			if (clubsLen == 3){
+				assertTrue(data.get(state) == BIDS[0][DIAMONDS]);
+			}
+			else {
+				assertTrue(data.get(state) == BIDS[0][SPADES]);
+			}
+		}
+		
+	}
 }

@@ -3,6 +3,10 @@
  */
 package edu.olin.rboy.bridge;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +34,8 @@ public class GameState {
 		this(new ArrayList<List<Integer>>(4),new LinkedList<Bid>());
 		newDeal();
 	}
+	
+	
 
 	/**
 	 * 

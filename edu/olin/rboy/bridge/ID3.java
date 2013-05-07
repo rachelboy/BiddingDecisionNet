@@ -34,6 +34,9 @@ public class ID3 implements BridgeConstants{
 		
 		HandConstraint newConstraint = (HandConstraint) chooseDividingConstraint(learned,
 				constraints);
+		System.out.println(newConstraint.hash());
+		/*System.out.println(newConstraint.min);
+		System.out.println(newConstraint.max);*/
 
 		List<Constraint> newConstraints = makeDivisions(newConstraint,learned);
 		
@@ -50,7 +53,7 @@ public class ID3 implements BridgeConstants{
 				}
 			}
 			if (childActions.size()>1){
-				System.out.println(childActions.size());
+				//System.out.println(childActions.size());
 				LearningNodeInterface redo = new LearningNode(childConstraints);
 				for (Bid action : learned.keySet()){
 					for (GameState state : learned.get(action)){
@@ -59,7 +62,8 @@ public class ID3 implements BridgeConstants{
 						}
 					}
 				}
-				System.out.println(redo.getActions().size());
+				//System.out.println(redo.getActions().size());
+				System.out.println("subdividing");
 				Set<DecisionNodeInterface> nextDepth = run(redo);
 				for (DecisionNodeInterface subnode : nextDepth) {
 					addChildren(node, subnode);
@@ -86,6 +90,9 @@ public class ID3 implements BridgeConstants{
 		}
 		
 		Constraint newConstraint = entropy.get(Collections.min(entropy.keySet()));
+		if (newConstraint == null){
+			System.out.println("null!");
+		}
 		return newConstraint.newInstance();
 	}
 
@@ -115,8 +122,10 @@ public class ID3 implements BridgeConstants{
 	public static Float findConstraintEntropy(Constraint constraint,
 			Map<Bid, Set<GameState>> learned) {
 		float totalStates = 0f;
-		Map<Object, Integer> dist = new HashMap<Object, Integer>();
+		float totEntropy = 0f;
+		Map<Object, Integer> dist;
 		for (Bid bid : learned.keySet()){
+			 dist = new HashMap<Object, Integer>();
 			for (GameState state : learned.get(bid)){
 				if (constraint.satisfiesConstraints(state)){
 					totalStates += 1;
@@ -129,14 +138,16 @@ public class ID3 implements BridgeConstants{
 					}
 				}
 			}
+			float entropy = 0f;
+			for (Object key : dist.keySet()) {
+				float p = dist.get(key)/totalStates;
+				entropy -= p*Math.log(p);
+			}
+			totEntropy += entropy;
 		}
 		
-		float entropy = 0f;
-		for (Object key : dist.keySet()) {
-			float p = dist.get(key)/totalStates;
-			entropy -= p*Math.log(p);
-		}
-		return entropy;
+		
+		return totEntropy/learned.keySet().size();
 	}
 
 	public static Float findActionEntropy(Constraint constraint,
@@ -165,7 +176,7 @@ public class ID3 implements BridgeConstants{
 		return entropy;
 	}
 
-	private Set<Constraint> findUnusedConstraints(Set<Constraint> constraints) {
+	public static Set<Constraint> findUnusedConstraints(Set<Constraint> constraints) {
 		Set<Constraint> unusedConstraints = new HashSet<Constraint>();
 		Set<String> usedHashes = new HashSet<String>();
 		for (Constraint constraint : constraints){
@@ -187,6 +198,7 @@ public class ID3 implements BridgeConstants{
 	private void addChildren(LearningNodeInterface node,
 			DecisionNodeInterface res) {
 		//Doesn't check that child stuff satisfies parent constraints at the moment - could be an issue?
+		System.out.println("adding Children");
 		Set<DecisionNodeInterface> regularChildren = new HashSet<DecisionNodeInterface>();
 		Set<DecisionNodeInterface> elseChildren = new HashSet<DecisionNodeInterface>();
 		for (LearningNodeInterface child : node.getRegularChildren()){

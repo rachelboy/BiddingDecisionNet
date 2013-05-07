@@ -21,6 +21,7 @@ import edu.olin.rboy.bridge.constraints.AcesConstraint;
 import edu.olin.rboy.bridge.constraints.Constraint;
 import edu.olin.rboy.bridge.constraints.HCConstraint;
 import edu.olin.rboy.bridge.constraints.SuitLengthConstraint;
+import edu.olin.rboy.bridge.constraints.TensConstraint;
 import edu.olin.rboy.bridge.networks.DecisionNodeInterface;
 import edu.olin.rboy.bridge.networks.LearningNode;
 import edu.olin.rboy.bridge.networks.LearningNodeInterface;
@@ -192,6 +193,18 @@ public class ID3Test implements BridgeConstants{
 		assertFalse(res.get(0).satisfiesConstraints(bidNT));
 		assertTrue(res.get(1).satisfiesConstraints(bidNT));
 		assertFalse(res.get(1).satisfiesConstraints(bidHearts));
+	}
+	
+	@Test
+	public void testFindUnusedConstraints() {
+		Constraint tens = new TensConstraint(0,2);
+		Set<Constraint> used = new HashSet<Constraint>();
+		used.add(tens);
+		Set<Constraint> unused = ID3.findUnusedConstraints(used);
+		
+		for (Constraint constraint : unused){
+			assertFalse(constraint.hash() == tens.hash());
+		}
 	}
 
 }

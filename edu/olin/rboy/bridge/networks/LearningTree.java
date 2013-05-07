@@ -58,7 +58,7 @@ public class LearningTree implements LearningNodeInterface {
 
 	@Override
 	public Set<Constraint> getConstraints() {
-		return null;
+		return new HashSet<Constraint>();
 	}
 
 	@Override
