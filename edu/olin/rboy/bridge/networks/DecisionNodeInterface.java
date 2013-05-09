@@ -14,7 +14,7 @@ import edu.olin.rboy.bridge.constraints.Constraint;
  * @author rboy
  *
  */
-public interface DecisionNodeInterface extends Bidable<DecisionNodeInterface>, Serializable {
+public interface DecisionNodeInterface extends Bidable<DecisionNodeInterface>{
 	
 	/**Determine if a state satisfies all the constraints to
 	 * be a member of the node.

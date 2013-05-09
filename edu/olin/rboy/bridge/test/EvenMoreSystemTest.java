@@ -1,13 +1,12 @@
 package edu.olin.rboy.bridge.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +22,7 @@ import edu.olin.rboy.bridge.networks.DecisionNodeInterface;
 import edu.olin.rboy.bridge.networks.DecisionTree;
 
 
-/*Not really a "unit" test, but whatever.
+/**Not really a "unit" test, but whatever.
  * Test the entire system!!!
  * 
  */
@@ -122,10 +121,31 @@ public class EvenMoreSystemTest implements BridgeConstants {
 		
 		bidder = new Bidder<DecisionNodeInterface>(learnedTree);
 		assertTrue(bidder.findBids(bidSpades).contains(BIDS[SPADES][0]));
+		System.out.println("spades");
+		for (Bid bid : bidder.findBids(bidSpades)){
+			System.out.println(bid.getSuit());
+		}
 		assertTrue(bidder.findBids(pass).contains(PASS));
+		System.out.println("pass");
+		for (Bid bid : bidder.findBids(pass)){
+			System.out.println(bid.getSuit());
+		}
 		assertTrue(bidder.findBids(bidHearts).contains(BIDS[HEARTS][0]));
+		System.out.println("hearts");
+		for (Bid bid : bidder.findBids(bidHearts)){
+			System.out.println(bid.getSuit());
+		}
 		assertTrue(bidder.findBids(bidDiamonds).contains(BIDS[DIAMONDS][0]));
+		System.out.println("diamonds");
+		for (Bid bid : bidder.findBids(bidDiamonds)){
+			System.out.println(bid.getSuit());
+		}
 		assertTrue(bidder.findBids(bidClubs).contains(BIDS[CLUBS][0]));
+		System.out.println("clubs");
+		for (Bid bid : bidder.findBids(bidClubs)){
+			System.out.println(bid.getSuit());
+		}
+		
 	}
 
 }

@@ -23,7 +23,7 @@ public interface BridgeConstants {
 	int Q = 12;
 	int J = 11;
 	
-	Bid PASS = new Bid(0,0);
+	Bid PASS = new Bid(0,-1);
 	
 	Bid[] HeartsBids = {new Bid(1,HEARTS), new Bid(2,HEARTS), new Bid(3,HEARTS), new Bid(4,HEARTS),
 			new Bid(5,HEARTS), new Bid(6,HEARTS), new Bid(7,HEARTS)};

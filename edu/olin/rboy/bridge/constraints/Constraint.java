@@ -1,5 +1,6 @@
 package edu.olin.rboy.bridge.constraints;
 
+import java.io.Serializable;
 import java.util.List;
 
 import edu.olin.rboy.bridge.GameState;
@@ -9,7 +10,7 @@ import edu.olin.rboy.bridge.GameState;
  * @author rboy
  *
  */
-public interface Constraint {
+public interface Constraint extends Serializable {
 	
 	public boolean satisfiesConstraints(GameState state);
 	

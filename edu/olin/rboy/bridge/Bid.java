@@ -3,6 +3,8 @@
  */
 package edu.olin.rboy.bridge;
 
+import java.io.Serializable;
+
 /**A bid.
  * @author rboy
  *
