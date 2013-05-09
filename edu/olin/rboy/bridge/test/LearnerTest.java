@@ -45,14 +45,14 @@ public class LearnerTest implements BridgeConstants{
 			constraintSet.add(new BalancedConstraint(0,1));
 			constraintSet.add(new HCPConstraint(15,17));
 			Set<Bid> bidSet = new HashSet<Bid>();
-			bidSet.add(BIDS[0][NT]);
+			bidSet.add(BIDS[NT][0]);
 			ntNode = new DecisionNode(constraintSet, bidSet);
 			
 			constraintSet = new HashSet<Constraint>();
 			constraintSet.add(new SuitLengthConstraint(5,13,HEARTS));
 			constraintSet.add(new HCPConstraint(11,23));
 			bidSet = new HashSet<Bid>();
-			bidSet.add(BIDS[0][HEARTS]);
+			bidSet.add(BIDS[HEARTS][0]);
 			hNode = new DecisionNode(constraintSet, bidSet);
 			
 			List<DecisionNodeInterface> children = new ArrayList<DecisionNodeInterface>();
@@ -126,13 +126,13 @@ public class LearnerTest implements BridgeConstants{
 	public void testLearn() {
 
 		Learner learner = new Learner(tree);
-		learner.learn(NTorH, BIDS[0][CLUBS]);
+		learner.learn(NTorH, BIDS[CLUBS][0]);
 		Bidder<LearningNodeInterface> bidder = new Bidder<LearningNodeInterface>(learner.getStrategy());
 		Set<LearningNodeInterface> children = bidder.findMostSpecifcNodes(NTorH);
 		assertTrue(children.size() == 1);
 		Set<Bid> bids = bidder.findBids(NTorH);
 		assertTrue(bids.size() == 1);
-		assertTrue(bids.contains(BIDS[0][CLUBS]));
+		assertTrue(bids.contains(BIDS[CLUBS][0]));
 	}
 
 	@Test
@@ -150,10 +150,10 @@ public class LearnerTest implements BridgeConstants{
 			int clubsLen = state.getHand().get(0).size();
 			assertTrue(clubsLen == 3 || clubsLen == 2);
 			if (clubsLen == 3){
-				assertTrue(data.get(state) == BIDS[0][DIAMONDS]);
+				assertTrue(data.get(state) == BIDS[DIAMONDS][0]);
 			}
 			else {
-				assertTrue(data.get(state) == BIDS[0][SPADES]);
+				assertTrue(data.get(state) == BIDS[SPADES][0]);
 			}
 		}
 		

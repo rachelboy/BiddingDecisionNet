@@ -115,11 +115,13 @@ public class Learner implements BridgeConstants {
 		return BIDS[Integer.parseInt(b[0])][Integer.parseInt(b[1])];
 	}
 
-	private void writeSuit(List<Integer> clubs, String line) {
+	private void writeSuit(List<Integer> suit, String line) {
 		line = line.trim();
 		String[] c = line.split(" ");
 		for (String card : c){
-			clubs.add(Integer.parseInt(card));
+			try {
+				suit.add(Integer.parseInt(card));
+			} catch (NumberFormatException e) {}
 		}
 	}
 

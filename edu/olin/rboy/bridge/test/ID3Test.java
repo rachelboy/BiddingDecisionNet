@@ -103,14 +103,14 @@ public class ID3Test implements BridgeConstants{
 		List<Constraint> constraints = new ArrayList<Constraint>();
 		constraints.add(new SuitLengthConstraint(4,13,HEARTS));
 		LearningNodeInterface node = new LearningNode(constraints);
-		node.addLearningInstance(bidHearts, BIDS[0][HEARTS]);
+		node.addLearningInstance(bidHearts, BIDS[HEARTS][0]);
 		
 		ID3 id3 = new ID3();
 		
 		List<DecisionNodeInterface> res = new ArrayList(id3.run(node));
 		assertTrue(res.get(0).satisfiesConstraints(bidHearts));
 		assertFalse(res.get(0).satisfiesConstraints(bidNT));
-		assertTrue(res.get(0).getActions().contains(BIDS[0][HEARTS]));
+		assertTrue(res.get(0).getActions().contains(BIDS[HEARTS][0]));
 		assertTrue(res.get(0).getActions().size() == 1);
 	}
 	
@@ -119,8 +119,8 @@ public class ID3Test implements BridgeConstants{
 		List<Constraint> constraints = new ArrayList<Constraint>();
 		constraints.add(new SuitLengthConstraint(3,13,HEARTS));
 		LearningNodeInterface node = new LearningNode(constraints);
-		node.addLearningInstance(bidHearts, BIDS[0][HEARTS]);
-		node.addLearningInstance(bidNT, BIDS[0][NT]);
+		node.addLearningInstance(bidHearts, BIDS[HEARTS][0]);
+		node.addLearningInstance(bidNT, BIDS[NT][0]);
 		
 		ID3 id3 = new ID3();
 		
@@ -138,12 +138,12 @@ public class ID3Test implements BridgeConstants{
 		assertFalse(n1.satisfiesConstraints(NTorH) && n2.satisfiesConstraints(NTorH));
 		
 		if (n1.satisfiesConstraints(bidHearts)) {
-			assertTrue(n1.getActions().contains(BIDS[0][HEARTS]));
-			assertTrue(n2.getActions().contains(BIDS[0][NT]));
+			assertTrue(n1.getActions().contains(BIDS[HEARTS][0]));
+			assertTrue(n2.getActions().contains(BIDS[NT][0]));
 		}
 		else {
-			assertTrue(n2.getActions().contains(BIDS[0][HEARTS]));
-			assertTrue(n1.getActions().contains(BIDS[0][NT]));
+			assertTrue(n2.getActions().contains(BIDS[HEARTS][0]));
+			assertTrue(n1.getActions().contains(BIDS[NT][0]));
 		}
 		
 	}
@@ -155,18 +155,18 @@ public class ID3Test implements BridgeConstants{
 		
 		Set<GameState> temp = new HashSet<GameState>();
 		temp.add(bidHearts);
-		stateSet.put(BIDS[0][HEARTS], temp);
+		stateSet.put(BIDS[HEARTS][0], temp);
 		assertTrue(ID3.findActionEntropy(testConstraint, stateSet) == 0);
 		
 		temp = new HashSet<GameState>();
 		temp.add(bidNT);
-		stateSet.put(BIDS[0][NT], temp);
+		stateSet.put(BIDS[NT][0], temp);
 		Float val = ID3.findActionEntropy(testConstraint, stateSet);
 		assertTrue(val > -1*Math.log(.5)-.000001f);
 		assertTrue(val < -1*Math.log(.5)+.000001f);
 		
 		temp.add(NTorH);
-		stateSet.put(BIDS[0][NT], temp);
+		stateSet.put(BIDS[NT][0], temp);
 		val = ID3.findActionEntropy(testConstraint, stateSet);
 		Float oneThird = 1/3f;
 		Float twoThird = 2/3f;
@@ -182,10 +182,10 @@ public class ID3Test implements BridgeConstants{
 		Map<Bid,Set<GameState>> learned = new HashMap<Bid,Set<GameState>>();
 		Set<GameState> temp = new HashSet<GameState>();
 		temp.add(bidHearts);
-		learned.put(BIDS[0][HEARTS], temp);
+		learned.put(BIDS[HEARTS][0], temp);
 		temp = new HashSet<GameState>();
 		temp.add(bidNT);
-		learned.put(BIDS[0][NT], temp);
+		learned.put(BIDS[NT][0], temp);
 		
 		List<Constraint> res = ID3.makeDivisions(constraint, learned);
 		assertTrue(res.size()==2);

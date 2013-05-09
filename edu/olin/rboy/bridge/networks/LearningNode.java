@@ -67,13 +67,13 @@ public class LearningNode implements LearningNodeInterface {
 				appChildren.add(child);
 			}
 		}
-		if (appChildren.size() == 0){
+		//if (appChildren.size() == 0){
 			for (LearningNodeInterface child : normalChildren){
 				if (child.satisfiesConstraints(state)){
 					appChildren.add(child);
 				}
 			}
-		}
+		//}
 		return appChildren;
 	}
 

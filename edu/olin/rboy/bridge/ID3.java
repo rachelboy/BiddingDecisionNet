@@ -34,6 +34,12 @@ public class ID3 implements BridgeConstants{
 		
 		HandConstraint newConstraint = (HandConstraint) chooseDividingConstraint(learned,
 				constraints);
+		if (newConstraint == null) {
+			DecisionNodeInterface res = new DecisionNode(constraints,actions);
+			addChildren(node, res);
+			nodes.add(res);
+			return nodes;
+		}
 		System.out.println(newConstraint.hash());
 		/*System.out.println(newConstraint.min);
 		System.out.println(newConstraint.max);*/
@@ -41,6 +47,7 @@ public class ID3 implements BridgeConstants{
 		List<Constraint> newConstraints = makeDivisions(newConstraint,learned);
 		
 		for (Constraint constraint : newConstraints) {
+			System.out.println(constraint.hash());
 			Set<Constraint> childConstraints = new HashSet<Constraint>(constraints);
 			childConstraints.add(constraint);
 			Set<Bid> childActions = new HashSet<Bid>();
@@ -55,6 +62,13 @@ public class ID3 implements BridgeConstants{
 			if (childActions.size()>1){
 				//System.out.println(childActions.size());
 				LearningNodeInterface redo = new LearningNode(childConstraints);
+				{
+					for (Constraint c : redo.getConstraints()){
+						if (c.hash().equals(constraint.hash())){
+							System.out.println("good");
+						}
+					}
+				}
 				for (Bid action : learned.keySet()){
 					for (GameState state : learned.get(action)){
 						if (redo.satisfiesConstraints(state)){
@@ -83,17 +97,28 @@ public class ID3 implements BridgeConstants{
 	private Constraint chooseDividingConstraint(
 			Map<Bid, Set<GameState>> learned, Set<Constraint> constraints) {
 		Set<Constraint> unusedConstraints = findUnusedConstraints(constraints);
+		if (unusedConstraints.size() == 0){
+			return null;
+		}
 		//Will only store the most recent constraint to have a given level of entropy
 		Map<Float, Constraint> entropy = new HashMap<Float,Constraint>();
 		for (Constraint constraint : unusedConstraints){
-			entropy.put(findConstraintEntropy(constraint,learned), constraint);
+			if (constraint instanceof HandConstraint){
+				entropy.put(findConstraintEntropy((HandConstraint) constraint,learned), constraint);
+			}
 		}
 		
 		Constraint newConstraint = entropy.get(Collections.min(entropy.keySet()));
 		if (newConstraint == null){
 			System.out.println("null!");
 		}
-		return newConstraint.newInstance();
+		Constraint res = newConstraint.newInstance();
+		for (Constraint c : constraints){
+			if (c.hash().equals(res.hash())){
+				System.out.println("fuckfuckfuck");
+			}
+		}
+		return res;
 	}
 
 	public static List<Constraint> makeDivisions(Constraint newConstraint,
@@ -119,10 +144,11 @@ public class ID3 implements BridgeConstants{
 		return aveEntropy.get(Collections.min(aveEntropy.keySet()));
 	}
 	
-	public static Float findConstraintEntropy(Constraint constraint,
+	public static Float findConstraintEntropy(HandConstraint constraint,
 			Map<Bid, Set<GameState>> learned) {
 		float totalStates = 0f;
 		float totEntropy = 0f;
+		float range = constraint.max - constraint.min;
 		Map<Object, Integer> dist;
 		for (Bid bid : learned.keySet()){
 			 dist = new HashMap<Object, Integer>();
@@ -143,7 +169,7 @@ public class ID3 implements BridgeConstants{
 				float p = dist.get(key)/totalStates;
 				entropy -= p*Math.log(p);
 			}
-			totEntropy += entropy;
+			totEntropy += entropy/range;
 		}
 		
 		
@@ -177,14 +203,13 @@ public class ID3 implements BridgeConstants{
 	}
 
 	public static Set<Constraint> findUnusedConstraints(Set<Constraint> constraints) {
-		Set<Constraint> unusedConstraints = new HashSet<Constraint>();
-		Set<String> usedHashes = new HashSet<String>();
-		for (Constraint constraint : constraints){
-			usedHashes.add(constraint.hash());
-		}
-		for (Constraint constraint : allHandConstraints){
-			if (!usedHashes.contains(constraint.hash())){
-				unusedConstraints.add(constraint);
+		Set<Constraint> unusedConstraints = new HashSet<Constraint>(allHandConstraints);
+
+		for (Constraint newConstraint : allHandConstraints){
+			for (Constraint oldConstraint : constraints) {
+				if (oldConstraint.hash().equals(newConstraint.newInstance().hash())){
+					unusedConstraints.remove(newConstraint);
+				}
 			}
 		}
 		/*for (Constraint constraint : ConstraintFactory.makeNullBiddingConstraints(1)){

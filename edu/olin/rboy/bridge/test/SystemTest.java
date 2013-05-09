@@ -40,7 +40,7 @@ public class SystemTest implements BridgeConstants{
 				ntConstraints.add(new BalancedConstraint(0,1));
 				ntConstraints.add(new HCPConstraint(15,17));
 				Set<Bid> ntActions = new HashSet<Bid>();
-				ntActions.add(BIDS[0][NT]);
+				ntActions.add(BIDS[NT][0]);
 				ntChild = new DecisionNode(ntConstraints, ntActions);
 			}
 			
@@ -49,7 +49,7 @@ public class SystemTest implements BridgeConstants{
 				hConstraints.add(new SuitLengthConstraint(5,13,HEARTS));
 				hConstraints.add(new HCPConstraint(11,23));
 				Set<Bid> hActions = new HashSet<Bid>();
-				hActions.add(BIDS[0][HEARTS]);
+				hActions.add(BIDS[HEARTS][0]);
 				hChild = new DecisionNode(hConstraints, hActions);
 			}
 			Collection<DecisionNodeInterface> children = new HashSet<DecisionNodeInterface>();
@@ -70,7 +70,7 @@ public class SystemTest implements BridgeConstants{
 			hand.add(Util.arrayToList(new Integer[]{4,5,6,7,8}));
 			hand.add(Util.arrayToList(new Integer[]{2,K,A}));
 			nt1 = new GameState(hand, null);
-			learner.learn(nt1, BIDS[0][NT]);
+			learner.learn(nt1, BIDS[NT][0]);
 		}
 		{
 			List<List<Integer>> hand = new ArrayList<List<Integer>>();
@@ -79,7 +79,7 @@ public class SystemTest implements BridgeConstants{
 			hand.add(Util.arrayToList(new Integer[]{4,5,J,Q,A}));
 			hand.add(Util.arrayToList(new Integer[]{2,K}));
 			nt2 = new GameState(hand, null);
-			learner.learn(nt2, BIDS[0][NT]);
+			learner.learn(nt2, BIDS[NT][0]);
 		}
 		{
 			List<List<Integer>> hand = new ArrayList<List<Integer>>();
@@ -88,7 +88,7 @@ public class SystemTest implements BridgeConstants{
 			hand.add(Util.arrayToList(new Integer[]{3,4,J,Q,K}));
 			hand.add(Util.arrayToList(new Integer[]{2,6,Q}));
 			h1 = new GameState(hand, null);
-			learner.learn(h1, BIDS[0][HEARTS]);
+			learner.learn(h1, BIDS[HEARTS][0]);
 		}
 
 		DecisionTree endTree = new DecisionTree();
@@ -96,12 +96,12 @@ public class SystemTest implements BridgeConstants{
 		endTree.addChildren(id3.run(learner.getStrategy()));
 		
 		Bidder<DecisionNodeInterface> bidder = new Bidder<DecisionNodeInterface>(endTree);
-		assertTrue(bidder.findBids(h1).contains(BIDS[0][HEARTS]));
-		assertFalse(bidder.findBids(h1).contains(BIDS[0][NT]));
-		assertFalse(bidder.findBids(nt1).contains(BIDS[0][HEARTS]));
-		assertTrue(bidder.findBids(nt1).contains(BIDS[0][NT]));
-		assertFalse(bidder.findBids(nt2).contains(BIDS[0][HEARTS]));
-		assertTrue(bidder.findBids(nt2).contains(BIDS[0][NT]));
+		assertTrue(bidder.findBids(h1).contains(BIDS[HEARTS][0]));
+		assertFalse(bidder.findBids(h1).contains(BIDS[NT][0]));
+		assertFalse(bidder.findBids(nt1).contains(BIDS[HEARTS][0]));
+		assertTrue(bidder.findBids(nt1).contains(BIDS[NT][0]));
+		assertFalse(bidder.findBids(nt2).contains(BIDS[HEARTS][0]));
+		assertTrue(bidder.findBids(nt2).contains(BIDS[NT][0]));
 	}
 
 }

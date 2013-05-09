@@ -58,13 +58,13 @@ public class DecisionNode implements DecisionNodeInterface{
 			}
 		}
 		
-		if (appChildren.size() == 0){
+		//if (appChildren.size() == 0){
 			for (DecisionNodeInterface child : elseChildren){
 				if (child.satisfiesConstraints(state)){
 					appChildren.add(child);
 				}
 			}
-		}
+		//}
 		
 		return appChildren;
 	}

@@ -18,6 +18,8 @@ public interface BridgeConstants {
 	int Q = 12;
 	int J = 11;
 	
+	Bid PASS = new Bid(0,0);
+	
 	Bid[] HeartsBids = {new Bid(1,HEARTS), new Bid(2,HEARTS), new Bid(3,HEARTS), new Bid(4,HEARTS),
 			new Bid(5,HEARTS), new Bid(6,HEARTS), new Bid(7,HEARTS)};
 	Bid[] SpadesBids = {new Bid(1,SPADES), new Bid(2,SPADES), new Bid(3,SPADES), new Bid(4,SPADES),
@@ -26,8 +28,11 @@ public interface BridgeConstants {
 			new Bid(4,DIAMONDS), new Bid(5,DIAMONDS), new Bid(6,DIAMONDS), new Bid(7,DIAMONDS)};
 	Bid[] ClubsBids = {new Bid(1,CLUBS), new Bid(2,CLUBS), new Bid(3,CLUBS), 
 			new Bid(4,CLUBS), new Bid(5,CLUBS), new Bid(6,CLUBS), new Bid(7,CLUBS)};
-	Bid[][] BIDS = {ClubsBids, DiamondsBids, HeartsBids, SpadesBids};
-	Bid PASS = new Bid(0,0);
+	Bid[] NTBids =  {new Bid(1,NT), new Bid(2,NT), new Bid(3,NT), 
+			new Bid(4,NT), new Bid(5,NT), new Bid(6,NT), new Bid(7,NT)};
+	Bid[] PassBids = {PASS};
+	Bid[][] BIDS = {ClubsBids, DiamondsBids, HeartsBids, SpadesBids, NTBids, PassBids};
+	
 	
 	Set<Constraint> allHandConstraints = ConstraintFactory.makeAllHandConstraints();
 

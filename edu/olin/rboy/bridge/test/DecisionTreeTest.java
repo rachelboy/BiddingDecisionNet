@@ -47,7 +47,7 @@ public class DecisionTreeTest implements BridgeConstants{
 			constraintSet.add(new SuitLengthConstraint(5,13,HEARTS));
 			constraintSet.add(new HCPConstraint(11,23));
 			bidSet = new HashSet<Bid>();
-			bidSet.add(BIDS[0][HEARTS]);
+			bidSet.add(BIDS[HEARTS][0]);
 			hNode = new DecisionNode(constraintSet, bidSet);
 			
 			Collection<DecisionNodeInterface> children = new HashSet<DecisionNodeInterface>();

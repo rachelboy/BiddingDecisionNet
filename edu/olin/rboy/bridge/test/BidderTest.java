@@ -40,14 +40,14 @@ public class BidderTest implements BridgeConstants{
 			constraintSet.add(new BalancedConstraint(0,1));
 			constraintSet.add(new HCPConstraint(15,17));
 			Set<Bid> bidSet = new HashSet<Bid>();
-			bidSet.add(BIDS[0][NT]);
+			bidSet.add(BIDS[NT][0]);
 			ntNode = new DecisionNode(constraintSet, bidSet);
 			
 			constraintSet = new HashSet<Constraint>();
 			constraintSet.add(new SuitLengthConstraint(5,13,HEARTS));
 			constraintSet.add(new HCPConstraint(11,23));
 			bidSet = new HashSet<Bid>();
-			bidSet.add(BIDS[0][HEARTS]);
+			bidSet.add(BIDS[HEARTS][0]);
 			hNode = new DecisionNode(constraintSet, bidSet);
 			
 			List<DecisionNodeInterface> children = new ArrayList<DecisionNodeInterface>();
@@ -122,16 +122,16 @@ public class BidderTest implements BridgeConstants{
 		Bidder<DecisionNodeInterface> bidder = new Bidder<DecisionNodeInterface>(tree);
 		Set<Bid> bids = bidder.findBids(bidHearts);
 		assertTrue(bids.size() == 1);
-		assertTrue(bids.contains(BIDS[0][HEARTS]));
+		assertTrue(bids.contains(BIDS[HEARTS][0]));
 		
 		bids = bidder.findBids(bidNT);
 		assertTrue(bids.size() == 1);
-		assertTrue(bids.contains(BIDS[0][NT]));
+		assertTrue(bids.contains(BIDS[NT][0]));
 		
 		bids = bidder.findBids(NTorH);
 		assertTrue(bids.size() == 2);
-		assertTrue(bids.contains(BIDS[0][NT]));
-		assertTrue(bids.contains(BIDS[0][HEARTS]));
+		assertTrue(bids.contains(BIDS[NT][0]));
+		assertTrue(bids.contains(BIDS[HEARTS][0]));
 		
 	}
 	
