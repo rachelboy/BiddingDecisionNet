@@ -3,16 +3,14 @@
  */
 package edu.olin.rboy.bridge;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
+/**Game state, including hand and bidding history.
+ * Bidding's not actually ever used at the moment, it just
+ * seemed like a good idea at the time?
  * @author rboy
  *
  */
@@ -30,6 +28,9 @@ public class GameState {
 		this.bidding = bidding;
 	}
 	
+	/**Constructor - generates a random hand.
+	 * 
+	 */
 	public GameState() {
 		this(new ArrayList<List<Integer>>(4),new LinkedList<Bid>());
 		newDeal();

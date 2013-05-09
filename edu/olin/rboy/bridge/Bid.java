@@ -3,7 +3,7 @@
  */
 package edu.olin.rboy.bridge;
 
-/**
+/**A bid.
  * @author rboy
  *
  */
@@ -12,8 +12,10 @@ public class Bid implements BridgeConstants, Comparable<Bid>{
 	int suit;
 	int level;
 	
-	/*Any suit at level 0 is a pass.
+	/**Constructor.
 	 * 
+	 * @param level
+	 * @param suit
 	 */
 	public Bid(int level, int suit) {
 		this.level = level;

@@ -1,10 +1,14 @@
 package edu.olin.rboy.bridge.constraints;
 
 import java.util.List;
-import java.util.Set;
 
 import edu.olin.rboy.bridge.GameState;
 
+/**A constraint on the properties of a game state.
+ * 
+ * @author rboy
+ *
+ */
 public interface Constraint {
 	
 	public boolean satisfiesConstraints(GameState state);

@@ -24,6 +24,7 @@ import edu.olin.rboy.bridge.networks.DecisionTree;
 
 
 /*Not really a "unit" test, but whatever.
+ * Test the entire system!!!
  * 
  */
 public class EvenMoreSystemTest implements BridgeConstants {
@@ -77,6 +78,9 @@ public class EvenMoreSystemTest implements BridgeConstants {
 		}
 	}
 
+	/**Test learning pass and typical one of a suit bids.
+	 * 
+	 */
 	@Test
 	public void test() {
 		Learner learner = new Learner(new DecisionTree());

@@ -20,7 +20,8 @@ import edu.olin.rboy.bridge.networks.LearningNode;
 import edu.olin.rboy.bridge.networks.LearningNodeInterface;
 import edu.olin.rboy.bridge.networks.LearningTree;
 
-/** 
+/** Handles most things to do with putting learning 
+ * instances into a learning tree.
  * @author rboy
  *
  */
@@ -29,7 +30,7 @@ public class Learner implements BridgeConstants {
 	Set<LearningNode> newNodes = new HashSet<LearningNode>();
 	Bidder<LearningNodeInterface> bidder;
 
-	/**
+	/**Constructor.
 	 * 
 	 */
 	public Learner(DecisionTree strategy) {
@@ -37,6 +38,11 @@ public class Learner implements BridgeConstants {
 		bidder = new Bidder<LearningNodeInterface>(this.strategy);
 	}
 	
+	/**Put learning instance into tree.
+	 * 
+	 * @param state
+	 * @param action
+	 */
 	public void learn(GameState state, Bid action){
 		Set<LearningNodeInterface> nodes = bidder.findMostSpecifcNodes(state);
 		
@@ -59,6 +65,12 @@ public class Learner implements BridgeConstants {
 		return strategy;
 	}
 	
+	/**Load learning instances from a file.
+	 * 
+	 * @param filename
+	 * @return map from states to associated bids
+	 * @throws FileNotFoundException
+	 */
 	public Map<GameState, Bid> getExamples(String filename) throws FileNotFoundException{
 		Map<GameState, Bid> res = new HashMap<GameState, Bid>();
 		

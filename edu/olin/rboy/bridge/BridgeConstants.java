@@ -5,6 +5,11 @@ import java.util.Set;
 import edu.olin.rboy.bridge.constraints.Constraint;
 import edu.olin.rboy.bridge.constraints.ConstraintFactory;
 
+/**Constants for the program.
+ * 
+ * @author rboy
+ *
+ */
 public interface BridgeConstants {
 	
 	int CLUBS = 0;

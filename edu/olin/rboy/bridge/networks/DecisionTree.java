@@ -3,15 +3,8 @@
  */
 package edu.olin.rboy.bridge.networks;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import edu.olin.rboy.bridge.Bid;
@@ -19,7 +12,7 @@ import edu.olin.rboy.bridge.BridgeConstants;
 import edu.olin.rboy.bridge.GameState;
 import edu.olin.rboy.bridge.constraints.Constraint;
 
-/**
+/**Head of a decision tree.
  * @author rboy
  *
  */

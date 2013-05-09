@@ -8,17 +8,25 @@ import java.util.Map;
 import java.util.Set;
 
 import edu.olin.rboy.bridge.constraints.Constraint;
-import edu.olin.rboy.bridge.constraints.ConstraintFactory;
-import edu.olin.rboy.bridge.constraints.ControlsConstraint;
-import edu.olin.rboy.bridge.constraints.HCConstraint;
 import edu.olin.rboy.bridge.constraints.HandConstraint;
 import edu.olin.rboy.bridge.networks.DecisionNode;
 import edu.olin.rboy.bridge.networks.DecisionNodeInterface;
 import edu.olin.rboy.bridge.networks.LearningNode;
 import edu.olin.rboy.bridge.networks.LearningNodeInterface;
 
+/**Induction algorithm for generalizing learning instances.
+ * 
+ * @author rboy
+ *
+ */
 public class ID3 implements BridgeConstants{
 
+	/**Turns a learning tree with examples into a decision tree
+	 * containing inferences from those examples using ID3 algorithm.
+	 * 
+	 * @param node
+	 * @return
+	 */
 	public Set<DecisionNodeInterface> run(LearningNodeInterface node) {
 		Set<Bid> actions = node.getActions();
 		Map<Bid, Set<GameState>> learned = node.getLearningInstances();
@@ -94,6 +102,15 @@ public class ID3 implements BridgeConstants{
 		return nodes;
 	}
 
+	/**Choose the constraint to divide a node with multiple actions along.
+	 * Chooses the constraint that is not currently used that has the
+	 * lowest average entropy between the possible bids, normalized to
+	 * the number of possible values of the constraint.
+	 * 
+	 * @param learned
+	 * @param constraints
+	 * @return
+	 */
 	private Constraint chooseDividingConstraint(
 			Map<Bid, Set<GameState>> learned, Set<Constraint> constraints) {
 		Set<Constraint> unusedConstraints = findUnusedConstraints(constraints);
@@ -113,14 +130,16 @@ public class ID3 implements BridgeConstants{
 			System.out.println("null!");
 		}
 		Constraint res = newConstraint.newInstance();
-		for (Constraint c : constraints){
-			if (c.hash().equals(res.hash())){
-				System.out.println("fuckfuckfuck");
-			}
-		}
 		return res;
 	}
 
+	/**Returns constraints that divide the node in a way that 
+	 * minimizes the average entropy of each subnode.
+	 * 
+	 * @param newConstraint
+	 * @param learned
+	 * @return
+	 */
 	public static List<Constraint> makeDivisions(Constraint newConstraint,
 			Map<Bid, Set<GameState>> learned) {
 		List<List<Constraint>> possDivisions = newConstraint.getPossDivisions(learned.keySet().size()-1);
@@ -144,6 +163,14 @@ public class ID3 implements BridgeConstants{
 		return aveEntropy.get(Collections.min(aveEntropy.keySet()));
 	}
 	
+	/**Find the average entropy for the distribution of constraint
+	 * values for each possible bid, normalized to the size of the 
+	 * constraint.
+	 * 
+	 * @param constraint
+	 * @param learned
+	 * @return
+	 */
 	public static Float findConstraintEntropy(HandConstraint constraint,
 			Map<Bid, Set<GameState>> learned) {
 		float totalStates = 0f;
@@ -176,6 +203,13 @@ public class ID3 implements BridgeConstants{
 		return totEntropy/learned.keySet().size();
 	}
 
+	/**Find the entropy of the distribution of bids associated
+	 * with example game states that fulfill a constraint.
+	 * 
+	 * @param constraint
+	 * @param learned
+	 * @return
+	 */
 	public static Float findActionEntropy(Constraint constraint,
 			Map<Bid, Set<GameState>> learned) {
 		float totalStates = 0f;
@@ -202,6 +236,11 @@ public class ID3 implements BridgeConstants{
 		return entropy;
 	}
 
+	/**Find all constraints that aren't currently used.
+	 * 
+	 * @param constraints
+	 * @return
+	 */
 	public static Set<Constraint> findUnusedConstraints(Set<Constraint> constraints) {
 		Set<Constraint> unusedConstraints = new HashSet<Constraint>(allHandConstraints);
 
@@ -212,14 +251,15 @@ public class ID3 implements BridgeConstants{
 				}
 			}
 		}
-		/*for (Constraint constraint : ConstraintFactory.makeNullBiddingConstraints(1)){
-			if (!usedHashes.contains(constraint.hash())){
-				unusedConstraints.add(constraint);
-			}
-		}*/
 		return unusedConstraints;
 	}
 
+	/**Recurse on all the learning node's children, and add them
+	 * to the decision node.
+	 * 
+	 * @param node
+	 * @param res
+	 */
 	private void addChildren(LearningNodeInterface node,
 			DecisionNodeInterface res) {
 		//Doesn't check that child stuff satisfies parent constraints at the moment - could be an issue?

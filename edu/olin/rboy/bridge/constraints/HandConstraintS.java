@@ -10,7 +10,7 @@ import java.util.List;
 
 import edu.olin.rboy.bridge.GameState;
 
-/**A constraint that applies only to a suit.
+/**A hand constraint that applies only to a suit.
  * @author rboy
  *
  */

@@ -10,7 +10,8 @@ import java.util.List;
 
 import edu.olin.rboy.bridge.GameState;
 
-/**Hand Constraint that is either for a single suit, if given a suit, or for the entire hand.
+/**Hand Constraint that is either for a single suit, 
+ * if given a suit, or for the entire hand.
  * @author rboy
  *
  */

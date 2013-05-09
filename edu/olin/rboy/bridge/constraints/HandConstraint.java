@@ -12,7 +12,11 @@ import java.util.Set;
 
 import edu.olin.rboy.bridge.GameState;
 
-/**
+/**A constraint on the properties of the hand in a 
+ * game state, where to satify the constraint some
+ * property of hte hand must be between a minimum
+ * and maximum value.
+ * 
  * @author rboy
  *
  */
